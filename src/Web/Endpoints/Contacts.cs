@@ -1,4 +1,4 @@
-﻿using contacts.api.Application.Contacts.Commands.GetContactByIdCommand;
+﻿using contacts.api.Application.Contacts.Commands.GetContactById;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection.Contacts.Commands;
