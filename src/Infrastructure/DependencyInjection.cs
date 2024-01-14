@@ -1,5 +1,4 @@
 ﻿using contacts.api.Application.Common.Interfaces;
-using contacts.api.Domain.Constants;
 using contacts.api.Infrastructure.Data;
 using contacts.api.Infrastructure.Data.Interceptors;
 using contacts.api.Infrastructure.Identity;
@@ -56,9 +55,9 @@ public static class DependencyInjection
         services.AddSingleton(TimeProvider.System);
         services.AddTransient<IIdentityService, IdentityService>();
 
-        services.AddAuthorization(options =>
-            options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));
-
+        // services.AddAuthorization(options =>
+        //     options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));
+        services.AddAuthorization();
         return services;
     }
 }

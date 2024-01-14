@@ -312,10 +312,13 @@ namespace contacts.api.Infrastructure.Data.Migrations
                     .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnType("nvarchar(50)");
+                b.Property<int>("CategoryId")
+                    .IsRequired()
+                    .HasColumnType("int");
 
-                b.Property<string>("SubCategory")
+                b.Property<int>("SubCategory")
                     .HasMaxLength(50)
-                    .HasColumnType("nvarchar(50)");
+                    .HasColumnType("int");
 
                 b.Property<string>("Phone")
                     .HasMaxLength(50)
@@ -329,6 +332,32 @@ namespace contacts.api.Infrastructure.Data.Migrations
                 b.HasIndex("Email")
                     .IsUnique();
                 b.ToTable("Contacts", (string)null);
+                
+            });
+            modelBuilder.Entity("namespace contacts.api.Domain.Entities.Category", b =>
+            {
+                
+                b.ToTable("Category", (string)null);
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
+                b.Property<string>("Name")
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .HasColumnType("nvarchar(50)");
+                
+            });
+            modelBuilder.Entity("namespace contacts.api.Domain.Entities.SubCategory", b =>
+            {
+                
+                b.ToTable("SubCategory", (string)null);
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
+                b.Property<string>("Name")
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .HasColumnType("nvarchar(50)");
                 
             });
 

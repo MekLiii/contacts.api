@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices;
-using contacts.api.Domain.Constants;
-using contacts.api.Domain.Entities;
+﻿using contacts.api.Domain.Entities;
 using contacts.api.Infrastructure.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -78,8 +76,8 @@ public class ApplicationDbContextInitialiser
                     LastName = $"Doe{i}",
                     Email = $"John@doe{i}.com",
                     Password = "Password",
-                    Category = "Family",
-                    SubCategory = "Brother",
+                    Category = $"Category{i}",
+                    SubCategory = 1,
                     Phone = "123456789",
                 });
             }
