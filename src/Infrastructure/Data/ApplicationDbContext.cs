@@ -11,7 +11,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
     
-    public DbSet<User> User => Set<User>();
+   
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

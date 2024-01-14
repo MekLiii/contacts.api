@@ -67,18 +67,19 @@ public class ApplicationDbContextInitialiser
 
     public async Task TrySeedAsync()
     {
-        if (!_context.Users.Any())
-        {
-            _context.User.Add(new User
-            {
-                Username = "John",
-                PasswordHash = "Doe",
-                LastLogin = new DateTime(2024, 1, 13),
-                IsActive = false
-                
-            });
-
-            await _context.SaveChangesAsync();
-        }
+        // if (!_context.Users.Any())
+        // {
+        //     _context.User.Add(new User
+        //     {
+        //         Username = "John",
+        //         PasswordHash = "Doe",
+        //       
+        //        
+        //         
+        //     });
+        //
+        //     await _context.SaveChangesAsync();
+        // }
+        await _context.SaveChangesAsync();
     }
 }
