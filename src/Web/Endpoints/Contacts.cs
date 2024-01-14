@@ -13,12 +13,9 @@ public class Contacts : EndpointGroupBase
     public override void Map(WebApplication app)
     {
         app.MapGroup(this)
-            .MapGet(GetContacts);
-
-        app.MapGroup(this)
-            .RequireAuthorization()
+            .MapGet(GetContacts)
             .MapGet("/{id}", GetContactById);
-
+        
         app.MapGroup(this)
             .RequireAuthorization()
             .MapDelete("/{id}", DeleteContact);
