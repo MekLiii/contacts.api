@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection.Contacts.Queries.GetContacts;
-using Contact = contacts.api.Domain.Entities.Contact;
+
 
 namespace contacts.api.Application.Common.Models;
 
@@ -13,6 +13,7 @@ public class LookupDto
         {
             
             CreateMap<Contact, ContactShortDto>();
+            CreateMap<Domain.Entities.Contact,Contact>();
         }
     }
 }
