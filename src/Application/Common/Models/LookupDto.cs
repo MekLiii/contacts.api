@@ -12,8 +12,9 @@ public class LookupDto
         public Mapping()
         {
             
-            CreateMap<Contact, ContactShortDto>();
-            CreateMap<Domain.Entities.Contact,Contact>();
+            CreateMap<Domain.Entities.Contact, ContactShortDto>();
+            CreateMap<Contact,Contact>();
+            CreateMap<Domain.Entities.Contact,ContactDto>();
         }
     }
 }

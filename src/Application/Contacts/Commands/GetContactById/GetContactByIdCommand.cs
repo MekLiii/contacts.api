@@ -1,7 +1,7 @@
 ﻿using contacts.api.Application.Common.Interfaces;
 using Microsoft.Extensions.DependencyInjection.Contacts.Queries.GetContacts;
 
-namespace contacts.api.Application.Contacts.Commands.GetContactByIdCommand;
+namespace contacts.api.Application.Contacts.Commands.GetContactById;
 
 public record GetContactByIdCommand(int Id) : IRequest<ContactDto>;
 
