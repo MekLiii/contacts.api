@@ -10,6 +10,8 @@ public class Contact
     public string Password { get; set; } = null!;
     public string Category { get; set; } = null!;
     public string SubCategory { get; set; } = null!;
+    public string CategoryId { get; set; } = null!;
+    public string SubCategoryId { get; set; } = null!;
     public string Phone { get; set; } = null!;
     public DateTime DateOfBirth { get; set; }
     

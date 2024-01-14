@@ -72,12 +72,13 @@ public class ApplicationDbContextInitialiser
             {
                 _context.Contacts.Add(new Contact()
                 {
+                    Id = i + 1,
                     FirstName = $"John{i}",
                     LastName = $"Doe{i}",
                     Email = $"John@doe{i}.com",
                     Password = "Password",
                     Category = $"Category{i}",
-                    SubCategory = 1,
+                    SubCategory = $"SubCategory{i}",
                     Phone = "123456789",
                 });
             }

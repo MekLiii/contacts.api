@@ -12,9 +12,13 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
         Contacts = Set<Contact>();
+        Category = Set<Category>();
+        SubCategory = Set<SubCategory>();
     }
 
     public DbSet<Contact> Contacts { get; set; }
+    public DbSet<Category> Category { get; set; }
+    public DbSet<SubCategory> SubCategory { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder builder)
