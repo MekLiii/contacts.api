@@ -1,4 +1,5 @@
 ﻿using contacts.api.Application.Contacts.Commands.GetContactByIdCommand;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection.Contacts.Commands;
 using Microsoft.Extensions.DependencyInjection.Contacts.Commands.UpdateContactCommand;
@@ -23,7 +24,7 @@ public class Contacts : EndpointGroupBase
             .MapDelete("/{id}", DeleteContact);
 
         app.MapGroup(this)
-            // .RequireAuthorization()
+            .RequireAuthorization()
             .MapPost("/{id}", UpdateContact);
     }
 
@@ -37,13 +38,16 @@ public class Contacts : EndpointGroupBase
         return await sender.Send(new GetContactByIdCommand(id));
     }
 
-    public async Task DeleteContact(ISender sender, [FromRoute] int id)
+    public async Task<IResult> DeleteContact(ISender sender, [FromRoute] int id)
     {
         await sender.Send(new DeleteContact(id));
+        return Results.NoContent();
     }
 
-    public async Task UpdateContact(ISender sender, [FromRoute] int id, [FromBody] UpdateContactCommand command)
+    public async Task<IResult> UpdateContact(ISender sender, [FromRoute] int id, [FromBody] UpdateContactCommand command)
     {
+        if (id != command.Id) return Results.BadRequest();
         await sender.Send(command);
+        return Results.NoContent();
     }
 }
