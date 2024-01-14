@@ -6,6 +6,29 @@
     "version": "1.0.0"
   },
   "paths": {
+    "/api/Contacts": {
+      "get": {
+        "tags": [
+          "Contacts"
+        ],
+        "operationId": "GetContacts",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ContactShortDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Users/register": {
       "post": {
         "tags": [
@@ -421,6 +444,25 @@
   },
   "components": {
     "schemas": {
+      "ContactShortDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
       "HttpValidationProblemDetails": {
         "allOf": [
           {
