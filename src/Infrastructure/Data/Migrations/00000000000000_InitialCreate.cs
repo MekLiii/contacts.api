@@ -49,23 +49,63 @@ namespace contacts.api.Infrastructure.Data.Migrations
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                 });
-
             migrationBuilder.CreateTable(
-                name: "TodoLists",
+                name: "Category",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Colour_Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    id = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(200)", nullable: false),
+                    
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TodoLists", x => x.Id);
+                    table.PrimaryKey("PK_Category_id", x => x.id);
+                });
+            migrationBuilder.CreateTable(
+                name: "SubCategory",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(200)", nullable: false),
+                    
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SubCategory_id", x => x.id);
+                });
+            
+            migrationBuilder.CreateTable(
+                name: "Contacts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"), // Identity column for ID
+                    FirstName = table.Column<string>(type: "nvarchar(200)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(200)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(200)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(200)", nullable: false),
+                    Category = table.Column<string>(type: "nvarchar(200)", nullable: true),
+                    CategoryId = table.Column<int>(type: "int", nullable: true), // Nullable int
+                    SubCategory = table.Column<string>(type: "nvarchar(200)", nullable: true),
+                    SubCategoryId = table.Column<int>(type: "int", nullable: true), // Nullable int
+                    Phone = table.Column<string>(type: "nvarchar(200)", nullable: true), // Nullable string
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Contacts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Contacts_Category_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Category",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Contacts_SubCategory_SubCategoryId",
+                        column: x => x.SubCategoryId,
+                        principalTable: "SubCategory",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -174,33 +214,7 @@ namespace contacts.api.Infrastructure.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "TodoItems",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ListId = table.Column<int>(type: "int", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Note = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Priority = table.Column<int>(type: "int", nullable: false),
-                    Reminder = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Done = table.Column<bool>(type: "bit", nullable: false),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastModified = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TodoItems", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_TodoItems_TodoLists_ListId",
-                        column: x => x.ListId,
-                        principalTable: "TodoLists",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+          
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -241,10 +255,7 @@ namespace contacts.api.Infrastructure.Data.Migrations
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_TodoItems_ListId",
-                table: "TodoItems",
-                column: "ListId");
+           
         }
 
         /// <inheritdoc />
@@ -264,18 +275,14 @@ namespace contacts.api.Infrastructure.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
-
-            migrationBuilder.DropTable(
-                name: "TodoItems");
+            
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "TodoLists");
+            
         }
     }
 }

@@ -66,25 +66,55 @@ public class ApplicationDbContextInitialiser
 
     public async Task TrySeedAsync()
     {
+        if (!_context.Category.Any())
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                _context.Category.Add(new Category() { Id = i + 1, Name = $"Category{i}", });
+            }
+        }
+
+        if (!_context.SubCategory.Any())
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                _context.SubCategory.Add(new SubCategory() { Id = i + 1, Name = $"Category{i}", });
+            }
+        }
+
         if (!_context.Contacts.Any())
         {
             for (int i = 0; i < 10; i++)
             {
-                _context.Contacts.Add(new Contact()
+                if (i % 2 == 0)
                 {
-                    Id = i + 1,
-                    FirstName = $"John{i}",
-                    LastName = $"Doe{i}",
-                    Email = $"John@doe{i}.com",
-                    Password = "Password",
-                    Category = $"Category{i}",
-                    SubCategory = $"SubCategory{i}",
-                    Phone = "123456789",
-                });
+                    _context.Contacts.Add(new Contact()
+                    {
+                        FirstName = $"John{i}",
+                        LastName = $"Doe{i}",
+                        Email = $"John@doe{i}.com",
+                        Password = "Password",
+                        Category = new Category() { Id = 1, Name = $"Category{i}", },
+                        SubCategory =
+                            new SubCategory() { Id = 1, Name = $"Category{i}", },
+                        Phone = "123456789",
+                    });
+                }
+
+                if (i % 2 != 0)
+                {
+                    _context.Contacts.Add(new Contact()
+                    {
+                        FirstName = $"John{i}",
+                        LastName = $"Doe{i}",
+                        Email = $"John@doe{i}.com",
+                        Password = "Password",
+                        CategoryId = 1,
+                        SubCategoryId = 1,
+                        Phone = "123456789",
+                    });
+                }
             }
-
-
-            await _context.SaveChangesAsync();
         }
 
         await _context.SaveChangesAsync();

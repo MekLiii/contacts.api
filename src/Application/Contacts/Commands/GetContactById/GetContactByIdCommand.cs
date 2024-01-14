@@ -19,6 +19,8 @@ public class GetContactByIdCommandHandler : IRequestHandler<GetContactByIdComman
     public async Task<ContactDto> Handle(GetContactByIdCommand request, CancellationToken cancellationToken)
     {
         var contact = await _context.Contacts
+            .Include(c => c.Category)
+            .Include(c => c.SubCategory)
             .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
         Guard.Against.NotFound(request.Id, contact);
         

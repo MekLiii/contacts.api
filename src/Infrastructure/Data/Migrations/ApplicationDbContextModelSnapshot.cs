@@ -310,16 +310,18 @@ namespace contacts.api.Infrastructure.Data.Migrations
                     .HasColumnType("nvarchar(255)");
 
                 b.Property<string>("Category")
-                    .IsRequired()
+                   
                     .HasMaxLength(50)
                     .HasColumnType("nvarchar(50)");
-                b.Property<int>("CategoryId")
-                    .IsRequired()
+                b.Property<int?>("CategoryId")
                     .HasColumnType("int");
 
-                b.Property<int>("SubCategory")
+                b.Property<string>("SubCategory")
                     .HasMaxLength(50)
-                    .HasColumnType("int");
+                    .HasColumnType("nvarchar(50)");
+                
+                b.Property<int?>("SubCategoryId")
+                    .HasColumnType("int?");
 
                 b.Property<string>("Phone")
                     .HasMaxLength(50)
