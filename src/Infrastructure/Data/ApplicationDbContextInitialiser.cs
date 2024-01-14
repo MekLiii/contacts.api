@@ -70,17 +70,20 @@ public class ApplicationDbContextInitialiser
     {
         if (!_context.Contacts.Any())
         {
-            _context.Contacts.Add(new Contact()
+            for (int i = 0; i < 10; i++)
             {
-                FirstName = "John",
-                LastName = "Doe",
-                Email = "John@doe.com",
-                Password = "Password",
-                Category = "Family",
-                SubCategory = "Brother",
-                Phone = "123456789",
-                DateOfBirth = new DateTime(1990, 1, 1)
-            });
+                _context.Contacts.Add(new Contact()
+                {
+                    FirstName = $"John{i}",
+                    LastName = $"Doe{i}",
+                    Email = $"John@doe{i}.com",
+                    Password = "Password",
+                    Category = "Family",
+                    SubCategory = "Brother",
+                    Phone = "123456789",
+                });
+            }
+
 
             await _context.SaveChangesAsync();
         }
