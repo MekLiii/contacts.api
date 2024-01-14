@@ -31,7 +31,8 @@ public class ApplicationDbContextInitialiser
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly RoleManager<IdentityRole> _roleManager;
 
-    public ApplicationDbContextInitialiser(ILogger<ApplicationDbContextInitialiser> logger, ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+    public ApplicationDbContextInitialiser(ILogger<ApplicationDbContextInitialiser> logger,
+        ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
     {
         _logger = logger;
         _context = context;
@@ -67,19 +68,23 @@ public class ApplicationDbContextInitialiser
 
     public async Task TrySeedAsync()
     {
-        // if (!_context.Users.Any())
-        // {
-        //     _context.User.Add(new User
-        //     {
-        //         Username = "John",
-        //         PasswordHash = "Doe",
-        //       
-        //        
-        //         
-        //     });
-        //
-        //     await _context.SaveChangesAsync();
-        // }
+        if (!_context.Contacts.Any())
+        {
+            _context.Contacts.Add(new Contact()
+            {
+                FirstName = "John",
+                LastName = "Doe",
+                Email = "John@doe.com",
+                Password = "Password",
+                Category = "Family",
+                SubCategory = "Brother",
+                Phone = "123456789",
+                DateOfBirth = new DateTime(1990, 1, 1)
+            });
+
+            await _context.SaveChangesAsync();
+        }
+
         await _context.SaveChangesAsync();
     }
 }

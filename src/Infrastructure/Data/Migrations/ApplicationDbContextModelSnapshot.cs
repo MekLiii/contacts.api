@@ -328,6 +328,7 @@ namespace contacts.api.Infrastructure.Data.Migrations
 
                 b.HasIndex("Email")
                     .IsUnique();
+                b.ToTable("Contacts", (string)null);
                 
             });
 
