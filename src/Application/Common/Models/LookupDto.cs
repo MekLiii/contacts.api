@@ -1,19 +1,18 @@
-﻿using contacts.api.Domain.Entities;
+﻿using Microsoft.Extensions.DependencyInjection.Contacts.Queries.GetContacts;
+using Contact = contacts.api.Domain.Entities.Contact;
 
 namespace contacts.api.Application.Common.Models;
 
 public class LookupDto
 {
-    public int Id { get; init; }
-
-    public string? Title { get; init; }
+    
 
     private class Mapping : Profile
     {
         public Mapping()
         {
-            // CreateMap<TodoList, LookupDto>();
-            // CreateMap<TodoItem, LookupDto>();
+            
+            CreateMap<Contact, ContactShortDto>();
         }
     }
 }
