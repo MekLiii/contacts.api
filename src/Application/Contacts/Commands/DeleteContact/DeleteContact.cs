@@ -3,9 +3,9 @@
 namespace Microsoft.Extensions.DependencyInjection.Contacts.Commands;
 
 
-public record DeleteContactCommand(int Id) : IRequest;
+public record DeleteContact(int Id) : IRequest;
 
-public class DeleteContactCommandHandler : IRequestHandler<DeleteContactCommand>
+public class DeleteContactCommandHandler : IRequestHandler<DeleteContact>
 {
     private readonly IApplicationDbContext _context;
     
@@ -14,7 +14,7 @@ public class DeleteContactCommandHandler : IRequestHandler<DeleteContactCommand>
         _context = context;
     }
     
-    public async Task Handle(DeleteContactCommand request, CancellationToken cancellationToken)
+    public async Task Handle(DeleteContact request, CancellationToken cancellationToken)
     {
         var contact = await _context.Contacts
             .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);

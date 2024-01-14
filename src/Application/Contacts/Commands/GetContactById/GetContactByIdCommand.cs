@@ -3,9 +3,9 @@ using Microsoft.Extensions.DependencyInjection.Contacts.Queries.GetContacts;
 
 namespace contacts.api.Application.Contacts.Commands.GetContactByIdCommand;
 
-public record GetContactByIdCommand(int Id) : IRequest<Contact>;
+public record GetContactByIdCommand(int Id) : IRequest<ContactDto>;
 
-public class GetContactByIdCommandHandler : IRequestHandler<GetContactByIdCommand, Contact>
+public class GetContactByIdCommandHandler : IRequestHandler<GetContactByIdCommand, ContactDto>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -16,12 +16,12 @@ public class GetContactByIdCommandHandler : IRequestHandler<GetContactByIdComman
         _mapper = mapper;
     }
 
-    public async Task<Contact> Handle(GetContactByIdCommand request, CancellationToken cancellationToken)
+    public async Task<ContactDto> Handle(GetContactByIdCommand request, CancellationToken cancellationToken)
     {
         var contact = await _context.Contacts
             .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
         Guard.Against.NotFound(request.Id, contact);
         
-        return _mapper.Map<Contact>(contact);
+        return _mapper.Map<ContactDto>(contact);
     }
 }
