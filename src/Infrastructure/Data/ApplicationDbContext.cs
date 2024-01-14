@@ -9,9 +9,13 @@ namespace contacts.api.Infrastructure.Data;
 
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
-    
-   
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+    {
+        Contacts = Set<Contact>();
+    }
+
+    public DbSet<Contact> Contacts { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

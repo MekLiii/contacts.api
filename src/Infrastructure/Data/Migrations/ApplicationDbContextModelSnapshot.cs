@@ -22,82 +22,9 @@ namespace contacts.api.Infrastructure.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("contacts.api.Domain.Entities.TodoItem", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int");
+            
 
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                b.Property<DateTimeOffset>("Created")
-                    .HasColumnType("datetimeoffset");
-
-                b.Property<string>("CreatedBy")
-                    .HasColumnType("nvarchar(max)");
-
-                b.Property<bool>("Done")
-                    .HasColumnType("bit");
-
-                b.Property<DateTimeOffset>("LastModified")
-                    .HasColumnType("datetimeoffset");
-
-                b.Property<string>("LastModifiedBy")
-                    .HasColumnType("nvarchar(max)");
-
-                b.Property<int>("ListId")
-                    .HasColumnType("int");
-
-                b.Property<string>("Note")
-                    .HasColumnType("nvarchar(max)");
-
-                b.Property<int>("Priority")
-                    .HasColumnType("int");
-
-                b.Property<DateTime?>("Reminder")
-                    .HasColumnType("datetime2");
-
-                b.Property<string>("Title")
-                    .IsRequired()
-                    .HasMaxLength(200)
-                    .HasColumnType("nvarchar(200)");
-
-                b.HasKey("Id");
-
-                b.HasIndex("ListId");
-
-                b.ToTable("TodoItems");
-            });
-
-            modelBuilder.Entity("contacts.api.Domain.Entities.TodoList", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int");
-
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                b.Property<DateTimeOffset>("Created")
-                    .HasColumnType("datetimeoffset");
-
-                b.Property<string>("CreatedBy")
-                    .HasColumnType("nvarchar(max)");
-
-                b.Property<DateTimeOffset>("LastModified")
-                    .HasColumnType("datetimeoffset");
-
-                b.Property<string>("LastModifiedBy")
-                    .HasColumnType("nvarchar(max)");
-
-                b.Property<string>("Title")
-                    .IsRequired()
-                    .HasMaxLength(200)
-                    .HasColumnType("nvarchar(200)");
-
-                b.HasKey("Id");
-
-                b.ToTable("TodoLists");
-            });
+          
 
             modelBuilder.Entity("contacts.api.Infrastructure.Identity.ApplicationUser", b =>
             {
@@ -301,39 +228,7 @@ namespace contacts.api.Infrastructure.Data.Migrations
                 b.ToTable("AspNetUserTokens", (string)null);
             });
 
-            modelBuilder.Entity("contacts.api.Domain.Entities.TodoItem", b =>
-            {
-                b.HasOne("contacts.api.Domain.Entities.TodoList", "List")
-                    .WithMany("Items")
-                    .HasForeignKey("ListId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
-
-                b.Navigation("List");
-            });
-
-            modelBuilder.Entity("contacts.api.Domain.Entities.TodoList", b =>
-            {
-                b.OwnsOne("contacts.api.Domain.ValueObjects.Colour", "Colour", b1 =>
-                {
-                    b1.Property<int>("TodoListId")
-                        .HasColumnType("int");
-
-                    b1.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b1.HasKey("TodoListId");
-
-                    b1.ToTable("TodoLists");
-
-                    b1.WithOwner()
-                        .HasForeignKey("TodoListId");
-                });
-
-                b.Navigation("Colour")
-                    .IsRequired();
-            });
+            
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
             {
@@ -385,11 +280,58 @@ namespace contacts.api.Infrastructure.Data.Migrations
                     .OnDelete(DeleteBehavior.Cascade)
                     .IsRequired();
             });
-
-            modelBuilder.Entity("contacts.api.Domain.Entities.TodoList", b =>
+            modelBuilder.Entity("namespace contacts.api.Domain.Entities.Contact", b =>
             {
-                b.Navigation("Items");
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
+
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                b.Property<string>("FirstName")
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .HasColumnType("nvarchar(50)");
+
+                b.Property<string>("LastName")
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .HasColumnType("nvarchar(50)");
+
+                b.Property<string>("Email")
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .HasColumnType("nvarchar(255)");
+
+                b.Property<string>("Password")
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .HasColumnType("nvarchar(255)");
+
+                b.Property<string>("Category")
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .HasColumnType("nvarchar(50)");
+
+                b.Property<string>("SubCategory")
+                    .HasMaxLength(50)
+                    .HasColumnType("nvarchar(50)");
+
+                b.Property<string>("Phone")
+                    .HasMaxLength(50)
+                    .HasColumnType("nvarchar(50)");
+
+                b.Property<DateTime>("DateOfBirth")
+                    .HasColumnType("datetime2");
+
+                b.HasKey("Id");
+
+                b.HasIndex("Email")
+                    .IsUnique();
+                
             });
+
+
 #pragma warning restore 612, 618
         }
     }
