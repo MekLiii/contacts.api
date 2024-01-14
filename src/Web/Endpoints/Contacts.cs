@@ -1,4 +1,5 @@
-﻿using contacts.api.Application.Contacts.Commands.GetContactById;
+﻿
+using contacts.api.Application.Contacts.Commands.GetContactByIdCommand;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection.Contacts.Queries.GetContacts;
 
@@ -10,8 +11,11 @@ public class Contacts : EndpointGroupBase
     public override void Map(WebApplication app)
     {
         app.MapGroup(this)
-            .MapGet(GetContacts)
-            .MapGet("/{id}",GetContactById);
+            .MapGet(GetContacts);
+           
+        app.MapGroup(this)
+            .RequireAuthorization()
+            .MapGet("/{id}", GetContactById);
     }
 
     public async Task<IEnumerable<ContactShortDto>> GetContacts(ISender sender)
