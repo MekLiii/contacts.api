@@ -21,13 +21,13 @@ public class Contacts : EndpointGroupBase
             .MapDelete("/{id}", DeleteContact);
 
         app.MapGroup(this)
-            .RequireAuthorization()
+            // .RequireAuthorization()
             .MapPost("/{id}", UpdateContact);
     }
 
     public async Task<IEnumerable<ContactShortDto>> GetContacts(ISender sender)
     {
-        return await sender.Send(new GetContactsQuery());
+        return await sender.Send(new GetContacts());
     }
 
     public async Task<ContactDto> GetContactById(ISender sender, [FromRoute] int id)
